@@ -9,7 +9,7 @@ import {
   Star,
 } from "lucide-react";
 import GalleryItem from "../components/GalleryItem";
-
+import { importAllImages } from "../utils/ImportImages";
 const ImageModal = ({
   image,
   title,
@@ -79,16 +79,9 @@ const ImageModal = ({
               <img
                 src={image}
                 alt={title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain object-center max-h-[90vh]"
               />
-              <div className="absolute bottom-4 left-4 flex gap-2">
-                <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all">
-                  <Heart className="w-5 h-5" />
-                </button>
-                <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all">
-                  <Share2 className="w-5 h-5" />
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -102,84 +95,71 @@ const Gallery = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [filter, setFilter] = useState("all");
 
+  // Top of Gallery.jsx
+
+  const couchImages = Object.values(
+    import.meta.glob("../assets/couch/*.{jpg,jpeg,png,svg}", { eager: true })
+  );
+  const bedImages = Object.values(
+    import.meta.glob("../assets/beds/*.{jpg,jpeg,png,svg}", { eager: true })
+  );
+  const doorImages = Object.values(
+    import.meta.glob("../assets/doors/*.{jpg,jpeg,png,svg}", { eager: true })
+  );
+  const hallImages = Object.values(
+    import.meta.glob("../assets/Hall_screen/*.{jpg,jpeg,png,svg}", {
+      eager: true,
+    })
+  );
+  const kitchenImages = Object.values(
+    import.meta.glob("../assets/kitchen/*.{jpg,jpeg,png,svg}", { eager: true })
+  );
+
+  const toGalleryItems = (images, category) =>
+    images.map((mod, i) => ({
+      id: `${category}-${i}`,
+      image: mod.default,
+      title: `${category.charAt(0).toUpperCase() + category.slice(1)} Item ${
+        i + 1
+      }`,
+      description: `Elegant ${category} design.`,
+      category,
+    }));
+
   const galleryItems = [
-    {
-      id: 1,
-      image:
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Modern Living Room Set",
-      description:
-        "Contemporary sofa and coffee table combination perfect for modern homes. Crafted with premium materials and attention to detail.",
-      category: "sofa",
-    },
-    {
-      id: 2,
-      image:
-        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Luxury Bedroom Suite",
-      description:
-        "Elegant bedroom furniture set including bed frame, nightstands, and dresser. Designed for comfort and style.",
-      category: "bed",
-    },
-    {
-      id: 3,
-      image:
-        "https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Dining Table Collection",
-      description:
-        "Handcrafted dining table with matching chairs. Perfect for family gatherings and dinner parties.",
-      category: "table",
-    },
-    {
-      id: 4,
-      image:
-        "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Comfortable Armchair",
-      description:
-        "Ergonomic armchair with premium upholstery. Ideal for reading corners and relaxation spaces.",
-      category: "sofa",
-    },
-    {
-      id: 5,
-      image:
-        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Walk-in Wardrobe",
-      description:
-        "Custom-built wardrobe with ample storage space. Organized sections for all your clothing needs.",
-      category: "almari",
-    },
-    {
-      id: 6,
-      image:
-        "https://images.unsplash.com/photo-1634712282287-14ed57b9cc89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Office Desk Setup",
-      description:
-        "Professional office desk with storage drawers. Designed for productivity and organization.",
-      category: "table",
-    },
+    ...toGalleryItems(couchImages, "couch"),
+    ...toGalleryItems(bedImages, "beds"),
+    ...toGalleryItems(doorImages, "doors"),
+    ...toGalleryItems(hallImages, "hall"),
+    ...toGalleryItems(kitchenImages, "kitchen"),
   ];
 
   const categories = [
     { id: "all", name: "All Items", count: galleryItems.length },
     {
-      id: "sofa",
-      name: "Sofas",
-      count: galleryItems.filter((item) => item.category === "sofa").length,
+      id: "couch",
+      name: "Couch",
+      count: galleryItems.filter((i) => i.category === "couch").length,
     },
     {
-      id: "bed",
-      name: "Beds",
-      count: galleryItems.filter((item) => item.category === "bed").length,
+      id: "beds",
+      name: "Bed",
+      count: galleryItems.filter((i) => i.category === "beds").length,
     },
     {
-      id: "table",
-      name: "Tables",
-      count: galleryItems.filter((item) => item.category === "table").length,
+      id: "doors",
+      name: "Doors & Design",
+      count: galleryItems.filter((i) => i.category === "doors").length,
     },
     {
-      id: "almari",
-      name: "Almari",
-      count: galleryItems.filter((item) => item.category === "almari").length,
+      id: "hall",
+      name: "Hall Furniture",
+      count: galleryItems.filter((i) => i.category === "hall").length,
+    },
+    {
+      id: "kitchen",
+      name: "Kitchen",
+      count: galleryItems.filter((i) => i.category === "kitchen").length,
     },
   ];
 

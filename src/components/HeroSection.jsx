@@ -96,7 +96,9 @@ const HeroSection = () => {
           >
             <button
               className="group bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
-              onClick={navigate("/gallery")}
+              onClick={() => {
+                navigate("/gallery");
+              }}
             >
               <span className="flex items-center gap-2">
                 Explore Our Work

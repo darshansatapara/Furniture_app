@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Home, Image, Phone, Sparkles } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Navbar = () => {  
+const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
+  // const [activeLink, setActiveLink] = useState("/");
 
   const links = [
     { name: "Home", path: "/", icon: Home },
@@ -25,7 +26,6 @@ const Navbar = () => {
   }, []);
 
   const handleLinkClick = (path) => {
-    setActiveLink(path);
     navigate(path);
     setIsOpen(false);
   };
@@ -51,11 +51,9 @@ const Navbar = () => {
               </div>
               <div className="ml-3">
                 <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r text-gray-700 bg-clip-text ">
-                  FurnitureCraft
+                  MaaChamundaCraft
                 </h1>
-                <p className="text-xs text-gray-700 hidden lg:block">
-                  Handcrafted Excellence
-                </p>
+               
               </div>
             </div>
 
@@ -63,7 +61,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center space-x-1">
               {links?.map((link) => {
                 const Icon = link.icon;
-                const isActive = activeLink === link.path;
+                const isActive = location.pathname === link.path;
 
                 return (
                   <button
@@ -76,7 +74,7 @@ const Navbar = () => {
                     }`}
                   >
                     <Icon className="w-4 h-4" />
-                    <span className="font-larg">{link.name}</span>
+                    <span className="text-lg">{link.name}</span>
 
                     {/* Active indicator */}
                     {isActive && (
@@ -124,7 +122,7 @@ const Navbar = () => {
               <div className="space-y-1">
                 {links?.map((link, index) => {
                   const Icon = link.icon;
-                  const isActive = activeLink === link.path;
+                  const isActive = location.pathname === link.path;
 
                   return (
                     <button

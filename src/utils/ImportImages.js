@@ -1,0 +1,1 @@
+export const importAllImages = (r) => r.keys().map(r);

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   ChevronRight,
   Sparkles,
@@ -7,8 +6,10 @@ import {
   Bed,
   Archive,
   Table,
+  DoorClosed,
 } from "lucide-react";
 import HeroSection from "../components/HeroSection";
+import { FaCouch } from "react-icons/fa";
 
 const CategoryCard = ({ title, image, icon: Icon, description }) => {
   return (
@@ -46,13 +47,15 @@ const CategoryCard = ({ title, image, icon: Icon, description }) => {
 const HomeSection = () => {
   const categories = [
     {
-      title: "Sofas",
+      key: "couch",
+      title: "Couch",
       image:
         "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: Sofa,
-      description: "Comfortable seating for every occasion",
+      icon: FaCouch,
+      description: "Comfortable seating for every one",
     },
     {
+      key: "beds",
       title: "Beds",
       image:
         "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -60,17 +63,19 @@ const HomeSection = () => {
       description: "Dreamy designs for restful nights",
     },
     {
-      title: "Almari",
+      key: "doors",
+      title: "Doors & Design",
       image:
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: Archive,
+        "https://plus.unsplash.com/premium_photo-1683134599520-773666454183?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
+      icon: DoorClosed,
       description: "Elegant storage solutions",
     },
     {
-      title: "Tables",
+      key: "hall",
+      title: "Hall Furniture",
       image:
-        "https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: Table,
+        "https://plus.unsplash.com/premium_photo-1661778819475-b5b784b18d09?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
+      icon: Archive,
       description: "Functional beauty for dining & work",
     },
   ];
@@ -86,7 +91,7 @@ const HomeSection = () => {
               <Sparkles className="w-4 h-4" />
               <span className="text-sm font-medium">Our Collections</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-4">
               Furniture Categories
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
