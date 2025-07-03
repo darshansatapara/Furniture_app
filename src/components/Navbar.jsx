@@ -42,7 +42,10 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo */}
-            <div className="flex items-center group cursor-pointer">
+            <div
+              className="flex items-center group cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <div className="relative">
                 <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <Sparkles className="w-5 h-5 text-white" />
@@ -53,7 +56,6 @@ const Navbar = () => {
                 <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r text-gray-700 bg-clip-text ">
                   MaaChamundaCraft
                 </h1>
-               
               </div>
             </div>
 

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import HeroSection from "../components/HeroSection";
 import { FaCouch } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 const CategoryCard = ({ title, image, icon: Icon, description }) => {
   return (
     <div className="group relative overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
@@ -45,6 +45,7 @@ const CategoryCard = ({ title, image, icon: Icon, description }) => {
 };
 
 const HomeSection = () => {
+  const navigate = useNavigate();
   const categories = [
     {
       key: "couch",
@@ -101,10 +102,11 @@ const HomeSection = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {categories?.map((cat, index) => (
+            {categories.map((cat, index) => (
               <div
                 key={index}
-                className="animate-fade-in-up"
+                onClick={() => navigate(`/gallery?category=${cat.key}`)}
+                className="cursor-pointer animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CategoryCard

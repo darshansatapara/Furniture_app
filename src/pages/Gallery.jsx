@@ -9,7 +9,7 @@ import {
   Star,
 } from "lucide-react";
 import GalleryItem from "../components/GalleryItem";
-import { importAllImages } from "../utils/ImportImages";
+import { useSearchParams } from "react-router-dom";
 const ImageModal = ({
   image,
   title,
@@ -81,7 +81,6 @@ const ImageModal = ({
                 alt={title}
                 className="w-full h-full object-contain object-center max-h-[90vh]"
               />
-              
             </div>
           </div>
         </div>
@@ -93,7 +92,9 @@ const ImageModal = ({
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [filter, setFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const defaultFilter = searchParams.get("category") || "all";
+  const [filter, setFilter] = useState(defaultFilter);
 
   // Top of Gallery.jsx
 
